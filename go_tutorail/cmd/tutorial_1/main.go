@@ -9,13 +9,22 @@ func main() {
 	numerator := 12
 	denominator := 3
 	var result, remain, err = intDivision(numerator, denominator)
-
-	if err != nil {
+	switch {
+	case err != nil:
 		fmt.Println(err.Error())
-	} else if remain != 0 {
-		fmt.Printf("The result of the division is %v and the remain is %v", result, remain)
-	} else {
-		fmt.Printf("The result of the division is %v", result)
+	case remain != 0:
+		fmt.Printf("The result of the division is %v and the remain is %v\n", result, remain)
+	default:
+		fmt.Printf("The result of the division is %v \n", result)
+	}
+
+	switch remain {
+	case 0:
+		fmt.Printf("The divison was exact")
+	case 1, 2:
+		fmt.Printf("The divison was close")
+	default:
+		fmt.Printf("The divison was not close")
 	}
 }
 
