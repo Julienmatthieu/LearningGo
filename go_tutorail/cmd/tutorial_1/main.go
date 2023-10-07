@@ -1,25 +1,37 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func main() {
-	text := "hello you"
+	numerator := 12
+	denominator := 3
+	var result, remain, err = intDivision(numerator, denominator)
 
-	printMe(text)
-
-	numerator := 11
-	denominator := 2
-	var result, remain int = intDivision(numerator, denominator)
-	fmt.Printf("The result of the division is %v and the remain is %v", result, remain)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else if remain != 0 {
+		fmt.Printf("The result of the division is %v and the remain is %v", result, remain)
+	} else {
+		fmt.Printf("The result of the division is %v", result)
+	}
 }
 
+/*
 func printMe(printValue string) {
 	fmt.Println(printValue)
-}
+}*/
 
-func intDivision(numerator int, denominator int) (int, int) {
+func intDivision(numerator int, denominator int) (int, int, error) {
+	var err error
+	if denominator == 0 {
+		err = errors.New("cannot divide by 0")
+		return 0, 0, err
+	}
 	var result int = numerator / denominator
 	var remain int = numerator % denominator
 
-	return result, remain
+	return result, remain, err
 }
